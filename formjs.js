@@ -49,9 +49,6 @@ $(".btn").click(function (e) {
         
     }
 
-    
-    
-
     //e.preventDefault();
     //console.log("eja");
 
@@ -59,10 +56,6 @@ $(".btn").click(function (e) {
         //e.preventDefault();
         
     //}
-
-   
-
-    
 
 });
 
@@ -105,7 +98,7 @@ $("#email").on("input", function() {
 
     if (validateEmail(email)) {
         $.post(
-            "email.php",
+            "form/email.php",
             {
                 email: email
             },
@@ -125,8 +118,12 @@ $("#email").on("input", function() {
         el.removeClass("is-valid");
         el.addClass("is-invalid");
     }
-
 });
+
+
+
+
+
 
 
 
