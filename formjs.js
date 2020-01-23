@@ -74,7 +74,7 @@ $("#username").on("blur", function() {
     var el = $(this);
 
 
-    // ajax invia i dati a username.php che esegue il controllo e mi restitutisce "result"
+    // ajax invia i dati a username.php che esegue il controllo e mi restituisce "result"
     $.ajax({
         url: "form/username.php",
         method:"post",
@@ -85,9 +85,11 @@ $("#username").on("blur", function() {
         
         success: function (data) {
             if (data.valid) {
-                el.addClass("is-valid");
-            } else {
+                el.removeClass("is-valid")
                 el.addClass("is-invalid");
+            } else {
+                el.removeClass("is-invalid")
+                el.addClass("is-valid");
             }
         },
 
@@ -95,6 +97,39 @@ $("#username").on("blur", function() {
     });
 
 });
+
+$("#email").on("input", function() {
+    var email = $(this).val().trim();
+    var el = $(this);
+
+
+    if (validateEmail(email)) {
+        $.post(
+            "email.php",
+            {
+                email: email
+            },
+            function (data) {
+                if (!data.valid) {
+                    el.removeClass("is-valid");
+                    el.addClass("is-invalid");
+                }
+                else {
+                    el.removeClass("is-invalid");
+                    el.addClass("is-valid");
+                }
+            },
+            "json"
+        );
+    } else {
+        el.removeClass("is-valid");
+        el.addClass("is-invalid");
+    },
+
+});
+
+
+
 
 
 
