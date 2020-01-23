@@ -3,6 +3,8 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
+var richiestaemail = false;
+
 
 
 $(".btn").click(function (e) {
@@ -91,34 +93,50 @@ $("#username").on("blur", function() {
 
 });
 
+// Validazione Email
 $("#email").on("input", function() {
     var email = $(this).val().trim();
     var el = $(this);
 
 
     if (validateEmail(email)) {
-        $.post(
-            "form/email.php",
-            {
-                email: email
-            },
-            function (data) {
-                if (!data.valid) {
-                    el.removeClass("is-valid");
-                    el.addClass("is-invalid");
-                }
-                else {
-                    el.removeClass("is-invalid");
-                    el.addClass("is-valid");
-                }
-            },
-            "json"
-        );
+        if (!richiestaemail) {
+            $.post(
+                "form/email.php",
+                {
+                    email: email
+                },
+                function (data) {
+                    if (!data.valid) {
+                        el.removeClass("is-valid");
+                        el.addClass("is-invalid");
+                    }
+                    else {
+                        el.removeClass("is-invalid");
+                        el.addClass("is-valid");
+                    }
+                    richiestaemail = false;
+                },
+                "json"
+            );
+
+            richiestaemail = true;
+            
+        
+            
+        }
+        
     } else {
         el.removeClass("is-valid");
         el.addClass("is-invalid");
     }
 });
+
+
+
+
+
+
 
 
 
