@@ -124,7 +124,7 @@ $("#email").on("input", function() {
     } else {
         el.removeClass("is-valid");
         el.addClass("is-invalid");
-    },
+    }
 
 });
 
